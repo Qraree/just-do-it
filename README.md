@@ -9,6 +9,10 @@ Frontend
 
 Backend
 - Nest.js
+- Postgres
 
 Other
 - Docker; Docker-compose
+
+Planned
+- Jest

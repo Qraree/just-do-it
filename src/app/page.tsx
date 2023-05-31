@@ -5,7 +5,7 @@ import { ITask } from "@/types/Task";
 import { randomStringId } from "@/utils/randomStringId";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addTask } from "@/redux/features/tasks/tasksSlice";
-import { userLogin, userLogout } from "@/redux/features/user/userSlice";
+import { userLogout } from "@/redux/features/user/userSlice";
 import Link from "next/link";
 
 export default function Home() {
@@ -43,7 +43,7 @@ export default function Home() {
         <div className="w-1/7 flex justify-around">
           {isUserAuth ? (
             <Link
-              href="/auth"
+              href="/auth/login"
               onClick={userLogoutFunc}
               className="hover:bg-sky-600 transition-all p-2 text-base"
             >

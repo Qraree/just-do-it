@@ -1,5 +1,5 @@
 ## Just do it
-This is my small to-do project for learning and testing new technologies i learned.
+This is my small to-do project for testing new technologies i learned.
 
 ### Current stack
 Frontend

@@ -1,11 +1,12 @@
 ## Just do it
-This is my small to-do project for learning and testing new technologies i learned.
+This is my small to-do project for testing the new web technologies i have learned.
 
 ### Current stack
 Frontend
 - Next.js 13
 - Tailwind
 - Redux toolkit
+- Axios
 
 Backend
 - Nest.js

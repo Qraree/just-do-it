@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import InputAuth from "@/components/UI/InputAuth";
 import AuthButton from "@/components/UI/AuthButton";
 import Link from "next/link";
-import { AUTH_MODE } from "@/app/constants/auth";
+import { AUTH_MODE } from "@/constants/auth";
 import { useAppDispatch } from "@/redux/hooks";
 import { userLogin } from "@/redux/features/user/userSlice";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface AuthLayoutProps {
   mode: string;
@@ -28,8 +29,17 @@ const AuthLayout = ({ mode }: AuthLayoutProps) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (mode === AUTH_MODE.LOGIN) {
-      dispatch(userLogin());
-      router.push("/");
+      axios
+        .post(`http://localhost:5000/auth/login`, {
+          email: userInput.email,
+          password: userInput.password,
+        })
+        .then((res) => {
+          if (res?.data?.token) {
+            dispatch(userLogin());
+            router.push("/");
+          }
+        });
     }
   };
 

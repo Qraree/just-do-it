@@ -6,6 +6,7 @@ Frontend
 - Next.js 13
 - Tailwind
 - Redux toolkit
+- Axios
 
 Backend
 - Nest.js

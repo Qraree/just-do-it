@@ -26,20 +26,36 @@ const AuthLayout = ({ mode }: AuthLayoutProps) => {
     setUserInput({ ...userInput, password: e.target.value });
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (mode === AUTH_MODE.LOGIN) {
-      axios
-        .post(`http://localhost:5000/auth/login`, {
+      try {
+        const response = await axios.post(`http://localhost:5000/auth/login`, {
           email: userInput.email,
           password: userInput.password,
-        })
-        .then((res) => {
-          if (res?.data?.token) {
-            dispatch(userLogin());
-            router.push("/");
-          }
         });
+        dispatch(userLogin());
+        router.push("/");
+        sessionStorage.setItem("token", `${response.data.token}`);
+        console.log(response.data.token);
+      } catch (e) {
+        console.log("Error");
+      }
+    } else {
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/auth/registration`,
+          {
+            email: userInput.email,
+            password: userInput.password,
+          }
+        );
+        router.push("/auth/login");
+        alert("Successful registration!");
+        console.log(response.data.token);
+      } catch (e) {
+        console.log("Error");
+      }
     }
   };
 
@@ -57,23 +73,21 @@ const AuthLayout = ({ mode }: AuthLayoutProps) => {
             value={userInput.password}
             onChange={handlePasswordChange}
           />
-          <AuthButton onCLick={handleSubmit}>Signup</AuthButton>
+          <AuthButton onCLick={handleSubmit}>
+            {mode === AUTH_MODE.LOGIN ? "Sign in" : "Sign up"}
+          </AuthButton>
           {mode === AUTH_MODE.LOGIN ? (
             <p className="text-sky-500 text-xl mt-5">
               Don&apos;t have an account?{" "}
               <Link href="/auth/signup">
-                <span className="bg-sky-500 text-white rounded-md">
-                  Sign up!
-                </span>
+                <span className="text-sky-500">Sign up!</span>
               </Link>
             </p>
           ) : (
             <p className="text-sky-500 text-xl mt-5">
               Already have account?{" "}
               <Link href="/auth/login">
-                <span className="bg-sky-500 text-white rounded-md">
-                  Sign in!
-                </span>
+                <span className="text-sky-500">Sign in!</span>
               </Link>
             </p>
           )}

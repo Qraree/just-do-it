@@ -11,7 +11,7 @@ const initialState: userStateType = {
   id: "bdwiebdi3b2bd",
   email: "hello@gmail.com",
   password: "lfnewbiwe",
-  authorized: true,
+  authorized: false,
 };
 
 export const userSlice = createSlice({
